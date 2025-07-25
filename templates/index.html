@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Claim Prediction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #93c5fd, #3b82f6);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .input-group {
+            position: relative;
+        }
+        .input-group input {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .input-group input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        .input-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+        }
+        .predict-button {
+            position: relative;
+            overflow: hidden;
+        }
+        .predict-button:hover {
+            background-color: #1d4ed8;
+        }
+        .predict-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+        .predict-button:hover::after {
+            width: 200px;
+            height: 200px;
+        }
+        .prediction-result {
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="card bg-white p-8 rounded-xl shadow-lg w-full max-w-lg mx-4">
+        <div class="flex items-center justify-center mb-6 motivated">
+            <i class="fas fa-heartbeat text-4xl text-blue-600 mr-2"></i>
+            <h2 class="text-2xl font-bold text-gray-800">Insurance Claim Prediction</h2>
+        </div>
+        <form method="POST" action="/predict" class="space-y-4">
+            <div class="input-group">
+                <label for="age" class="block text-sm font-medium text-gray-700">Age</label>
+                <i class="fas fa-user input-icon"></i>
+                <input type="text" name="age" id="age" class="mt-1 w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="input-group">
+                <label for="sex" class="block text-sm font-medium text-gray-700">Sex</label>
+                <i class="fas fa-venus-mars input-icon"></i>
+                <input type="text" name="sex" id="sex" class="mt-1 w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="input-group">
+                <label for="weight" class="block text-sm font-medium text-gray-700">Weight</label>
+                <i class="fas fa-weight input-icon"></i>
+                <input type="text" name="weight" id="weight" class="mt-1 w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="input-group">
+                <label for="bmi" class="block text-sm font-medium text-gray-700">BMI</label>
+                <i class="fas fa-calculator input-icon"></i>
+                <input type="text" name="bmi" id="bmi" class="mt-1 w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="input-group">
+                <label for="hereditary_diseases" class="block text-sm font-medium text-gray-700">Hereditary Diseases</label>
+                <i class="fas fa-dna input-icon"></i>
+                <input type="text" name="hereditary_diseases" id="hereditary_diseases" class="mt-1 w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="input-group">
+                <label for="no_of_dependents" class="block text-sm font-medium text-gray-700">No. of Dependents</label>
+                <i class="fas fa-users input-icon"></i>
+                <input type="number" name="no_of_dependents" id="no_of_dependents" class="mt-1 w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="input-group">
+                <label for="smoker" class="block text-sm font-medium text-gray-700">Smoker (1/0)</label>
+                <i class="fas fa-smoking input-icon"></i>
+                <input type="number" name="smoker" id="smoker" class="mt-1 w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="input-group">
+                <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                <i class="fas fa-city input-icon"></i>
+                <input type="text" name="city" id="city" class="mt-1 w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="input-group">
+                <label for="bloodpressure" class="block text-sm font-medium text-gray-700">Blood Pressure</label>
+                <i class="fas fa-heartbeat input-icon"></i>
+                <input type="text" name="bloodpressure" id="bloodpressure" class="mt-1 w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="input-group">
+                <label for="diabetes" class="block text-sm font-medium text-gray-700">Diabetes (1/0)</label>
+                <i class="fas fa-syringe input-icon"></i>
+                <input type="number" name="diabetes" id="diabetes" class="mt-1 w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="input-group">
+                <label for="regular_ex" class="block text-sm font-medium text-gray-700">Regular Exercise (1/0)</label>
+                <i class="fas fa-running input-icon"></i>
+                <input type="number" name="regular_ex" id="regular_ex" class="mt-1 w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="input-group">
+                <label for="job_title" class="block text-sm font-medium text-gray-700">Job Title</label>
+                <i class="fas fa-briefcase input-icon"></i>
+                <input type="text" name="job_title" id="job_title" class="mt-1 w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+                <button type="submit" class="predict-button w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition duration-200 flex items-center justify-center">
+                    <i class="fas fa-chart-line mr-2"></i> Predict
+                </button>
+            </div>
+        </form>
+        <div class="prediction-result mt-6 text-center">
+            <h3 class="text-lg font-medium text-gray-800">{{ prediction_text or 'No prediction yet. Submit the form to see the result.' }}</h3>
+        </div>
+    </div>
+</body>
+</html>

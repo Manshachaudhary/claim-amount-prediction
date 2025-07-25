@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | HealthCare Claim Predictor</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, honeydew, palegreen);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Heartbeat background */
+    .heartbeat-bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0.1;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .heartbeat-bg svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .heartbeat-line {
+      stroke: darkgreen;
+      stroke-width: 2;
+      fill: none;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: dash 8s linear infinite;
+    }
+
+    @keyframes dash {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background-color: mediumseagreen;
+      width: 220px;
+      color: white;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      z-index: 2;
+      box-shadow: 2px 0 15px darkseagreen;
+    }
+
+    .sidebar h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+      padding: 8px 0;
+      transition: transform 0.2s ease, color 0.3s ease;
+    }
+
+    .sidebar a:hover {
+      transform: translateX(5px);
+      color: honeydew;
+    }
+
+    /* Main dashboard content */
+    .main {
+      flex-grow: 1;
+      padding: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .dashboard-header {
+      font-size: 28px;
+      font-weight: bold;
+      color: forestgreen;
+      margin-bottom: 30px;
+      animation: fadeSlideIn 1s ease-out;
+    }
+
+    @keyframes fadeSlideIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 6px 16px darkgray;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: zoomFadeIn 0.8s ease-out both;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px darkseagreen;
+    }
+
+    @keyframes zoomFadeIn {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .card h3 {
+      margin: 0;
+      margin-bottom: 10px;
+      color: seagreen;
+    }
+
+    .card p {
+      color: dimgray;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated heartbeat SVG -->
+  <div class="heartbeat-bg">
+    <svg viewBox="0 0 1000 200" preserveAspectRatio="none">
+      <path class="heartbeat-line" d="M0,100 
+        L100,100 
+        L120,60 
+        L140,140 
+        L160,80 
+        L180,100 
+        L300,100 
+        L320,40 
+        L340,160 
+        L360,60 
+        L380,100 
+        L1000,100" />
+    </svg>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Claim Portal</h2>
+    <a href="#">🏠 Dashboard</a>
+    <a href="#">📄 Claim History</a>
+    <a href="#">💡 Predict Claim</a>
+    <a href="#">👤 Profile</a>
+    <a href="#">🔒 Logout</a>
+  </div>
+
+  <!-- Main content -->
+  <div class="main">
+    <div class="dashboard-header">Welcome, Gaurav Chandola</div>
+    <div class="cards">
+      <div class="card">
+        <h3>Claim Predictions</h3>
+        <p>Based on your latest inputs, your next expected claim amount is ₹23,500.</p>
+      </div>
+      <div class="card">
+        <h3>Recent Activity</h3>
+        <p>Last claim submitted on 12 July 2025. Status: Approved.</p>
+      </div>
+      <div class="card">
+        <h3>Policy Overview</h3>
+        <p>You are covered under Plan A with ₹5,00,000 max annual coverage.</p>
+      </div>
+      <div class="card">
+        <h3>Profile Completion</h3>
+        <p>Your profile is 90% complete. Add your PAN to finish setup.</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

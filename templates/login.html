@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | HealthCare Claim Predictor</title>
+  <style>
+    
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, honeydew, palegreen);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: floatUp 20s infinite linear;
+    }
+
+    .bubble:nth-child(1) {
+      width: 60px;
+      height: 60px;
+      background-color: lightgreen;
+      left: 20%;
+      bottom: -100px;
+      animation-duration: 18s;
+    }
+
+    .bubble:nth-child(2) {
+      width: 40px;
+      height: 40px;
+      background-color: mediumseagreen;
+      left: 40%;
+      bottom: -120px;
+      animation-duration: 22s;
+    }
+
+    .bubble:nth-child(3) {
+      width: 80px;
+      height: 80px;
+      background-color: palegreen;
+      left: 70%;
+      bottom: -150px;
+      animation-duration: 25s;
+    }
+
+    .bubble:nth-child(4) {
+      width: 30px;
+      height: 30px;
+      background-color: lightseagreen;
+      left: 60%;
+      bottom: -90px;
+      animation-duration: 17s;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-120vh) scale(1.2); }
+    }
+
+    .heartbeat-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      opacity: 0.15;
+    }
+
+    .heartbeat-bg svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .heartbeat-line {
+      stroke: darkgreen;
+      stroke-width: 2;
+      fill: none;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: dash 5s linear infinite;
+    }
+
+    @keyframes dash {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+   
+    .login-container {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px darkgray;
+      width: 100%;
+      max-width: 420px;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: zoomFadeIn 1.2s ease-out forwards 0.6s;
+      z-index: 2;
+    }
+
+    @keyframes zoomFadeIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: forestgreen;
+      font-size: 28px;
+      animation: heartbeat 2.2s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); color: forestgreen; }
+      50% { transform: scale(1.06); color: mediumseagreen; }
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: darkgreen;
+      font-weight: bold;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid mediumseagreen;
+      border-radius: 10px;
+      outline: none;
+      transition: all 0.3s ease;
+      background-color: honeydew;
+    }
+
+    .form-group input:focus {
+      border-color: forestgreen;
+      box-shadow: 0 0 12px lightseagreen;
+      background-color: white;
+      transform: scale(1.02);
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 12px;
+      background-color: forestgreen;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 17px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulseButton 2s infinite;
+    }
+
+    .login-button:hover {
+      background-color: seagreen;
+      transform: scale(1.05);
+      box-shadow: 0 0 12px mediumseagreen;
+    }
+
+    @keyframes pulseButton {
+      0% { box-shadow: 0 0 0px forestgreen; }
+      50% { box-shadow: 0 0 12px forestgreen; }
+      100% { box-shadow: 0 0 0px forestgreen; }
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 14px;
+      color: dimgray;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .footer-text a {
+      color: teal;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .footer-text a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="heartbeat-bg">
+    <svg viewBox="0 0 1000 200" preserveAspectRatio="none">
+      <path class="heartbeat-line" d="M0,100 
+  L100,100 
+  L120,60 
+  L140,140 
+  L160,80 
+  L180,100 
+  L300,100 
+  L320,40 
+  L340,160 
+  L360,60 
+  L380,100 
+  L500,100 
+  L520,60 
+  L540,140 
+  L560,80 
+  L580,100 
+  L700,100 
+  L720,40 
+  L740,160 
+  L760,60 
+  L780,100 
+  L1000,100" />
+    </svg>
+  </div>
+
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+
+
+  <div class="login-container">
+    <h2>HealthCare Claim Predictor</h2>
+    <form action="/login" method="POST">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+
+      <button type="submit" class="login-button">Login</button>
+    </form>
+  </div>
+  <script>
+  const passwordInput = document.getElementById("password");
+  const loginForm = document.querySelector("form");
+
+  const strengthMsg = document.createElement("div");
+  strengthMsg.style.marginTop = "5px";
+  strengthMsg.style.fontSize = "13px";
+  strengthMsg.style.color = "darkgreen";
+  passwordInput.parentNode.appendChild(strengthMsg);
+
+  passwordInput.addEventListener("input", () => {
+    const val = passwordInput.value;
+    let strength = "Weak";
+
+    const hasUpper = /[A-Z]/.test(val);
+    const hasLower = /[a-z]/.test(val);
+    const hasNumber = /[0-9]/.test(val);
+    const hasSpecial = /[!@#$%^&*]/.test(val);
+
+    if (val.length > 5 && hasUpper && hasLower && hasNumber && hasSpecial) {
+      strength = "Strong";
+      strengthMsg.style.color = "green";
+    } else if (val.length >= 3 && (hasUpper || hasNumber)) {
+      strength = "Medium";
+      strengthMsg.style.color = "orange";
+    } else {
+      strength = "Weak";
+      strengthMsg.style.color = "red";
+    }
+
+    strengthMsg.textContent = `Password Strength: ${strength}`;
+  });
+
+  loginForm.addEventListener("submit", function (e) {
+    e.preventDefault(); 
+    const email = document.getElementById("email").value;
+    const pass = document.getElementById("password").value;
+
+    if (email && pass.length >= 6) {
+      alert("Login successful! Redirecting to dashboard...");
+      window.location.href = "dashboard.html"; 
+    } else {
+      alert("Please enter a valid email and password.");
+    }
+  });
+</script>
+
+</body>
+</html>
